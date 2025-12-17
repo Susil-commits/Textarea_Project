@@ -1,46 +1,51 @@
 Rich Text Editor Project
 
-A full-featured rich text editor with image upload, CRUD, and read-only viewing built with React, ReactQuill, Node.js, and MySQL.
-This project demonstrates a production-ready CMS-like system with media handling, Delta storage, and dynamic editing.
+A full-featured rich text editor built with React, ReactQuill, Node.js, and MySQL, supporting image uploads, CRUD operations, and read-only viewing.
+This project demonstrates a CMS-style system with Delta-based content storage and a modern editor interface.
 
 Features
 
-Rich text formatting:
+Rich Text Formatting: Bold, Italic, Underline, Strikethrough, Headers, Lists, Blockquotes, Code blocks
 
-Bold, Italic, Underline, Strikethrough
+Media Support: Images, Links, Videos
 
-Headers, lists, blockquotes, code blocks
+Delta-based Storage: JSON content stored in MySQL for reliable and structured storage
 
-Media support:
+Full CRUD Functionality:
 
-Images (server upload)
-
-Links, videos
-
-Delta-based storage (JSON) in MySQL
-
-Full CRUD:
-
-List documents
+List all documents
 
 Edit documents
 
 Delete documents
 
-Read-only viewer
+Read-Only Viewer: Safe rendering of content for preview
 
-Theme switching (snow / bubble)
+Theme Switching: Snow (default) and Bubble
 
-Modular and extensible architecture
+Extensible Architecture: Custom toolbar and modules
 
 Tech Stack
-
-Frontend: React, ReactQuill, Axios, Vite
-
-Backend: Node.js, Express.js, MySQL2, Multer
-
-Database: MySQL
-
-File storage: Backend /uploads folder (images)
-
-Optional UI Enhancements: TailwindCSS or Material UI
+Layer	Technology
+Frontend	React, ReactQuill, Axios, Vite
+Backend	Node.js, Express, Multer, MySQL2
+Database	MySQL
+Storage	Server-side /uploads folder
+Optional UI	TailwindCSS or Material UI
+Project Structure
+Textarea_Project/
+│
+├─ backend/
+│  ├─ db.js           # MySQL connection
+│  ├─ routes.js       # API routes (CRUD + image upload)
+│  ├─ server.js       # Express server
+│  └─ uploads/        # Uploaded images
+│
+└─ frontend/
+   ├─ src/
+   │  ├─ App.jsx         # Main layout
+   │  ├─ Editor.jsx      # Rich text editor
+   │  ├─ DocumentList.jsx# Document list & edit
+   │  ├─ Viewer.jsx      # Read-only viewer
+   │  └─ main.jsx        # App bootstrap
+   └─ package.json
