@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
-import ReactQuill from "react-quill";
+import ReactQuill from "react-quill-new";
 import axios from "axios";
-import "react-quill/dist/quill.snow.css";
+import "react-quill-new/dist/quill.snow.css";
 import "./quill-custom.css"; // We might need some custom CSS for Quill height
 
 export default function Editor({ onSaveSuccess }) {

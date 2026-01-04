@@ -6,7 +6,7 @@
 
 ## ✨ Features
 
-- **Rich Text Editing**: Create beautiful documents using a Quill.js-based editor (Bold, Italic, Lists, Links, etc.).
+- **Rich Text Editing**: Create beautiful documents using a React-Quill-New based editor (Bold, Italic, Lists, Links, etc.).
 - **File & Image Uploads**: Seamlessly upload images and files directly within the document content.
 - **Document Management**: Save, list, and retrieve documents with ease.
 - **Read-Only Mode**: View saved documents in a clean, read-only viewer.

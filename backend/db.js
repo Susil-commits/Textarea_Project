@@ -2,17 +2,10 @@ const mysql = require("mysql2");
 
 // Connect initially without database to ensure we can create it if missing
 const db = mysql.createConnection({
-<<<<<<< HEAD
   host: "localhost",
   user: "root",
   password: "Susil@2004",
   multipleStatements: true // Enable multiple statements for initialization
-=======
-  host: 'localhost',
-  user: 'root',
-  password: 'Type Passcode Here',
-  database: 'quill_db'
->>>>>>> 647637ee6762135a565f1bcc4e1224f6098d3f0d
 });
 
 db.connect((err) => {
