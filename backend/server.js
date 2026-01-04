@@ -1,17 +1,15 @@
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const routes = require('./routes');
-const path = require('path');
+const express = require("express");
+const cors = require("cors");
 
 const app = express();
 
 app.use(cors());
-app.use(bodyParser.json({ limit: '10mb' }));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(express.json());
 
-app.use('/api', routes);
+app.use("/uploads", express.static("uploads"));
+app.use("/api", require("./routes"));
 
-app.listen(5000, () => {
-  console.log('Backend running on http://localhost:5000');
+const PORT = 5000;
+app.listen(PORT, () => {
+  console.log(`Backend running on http://localhost:${PORT}`);
 });
