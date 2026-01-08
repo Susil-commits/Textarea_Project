@@ -40,7 +40,7 @@ export default function DocumentList({ onSelect, selectedId }) {
 
   return (
     <ul className="divide-y divide-gray-100">
-      {docs.map((doc) => (
+      {docs.map((doc, idx) => (
         <li key={doc.id}>
           <button
             onClick={() => onSelect(doc.id)}
@@ -48,16 +48,25 @@ export default function DocumentList({ onSelect, selectedId }) {
               selectedId === doc.id ? "bg-blue-50 border-l-4 border-blue-600" : "border-l-4 border-transparent"
             }`}
           >
-            <div className={`font-medium mb-1 ${selectedId === doc.id ? "text-blue-700" : "text-gray-900"}`}>
-              {doc.title}
+            <div className="flex items-center gap-3">
+              <span
+                className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs ${
+                  selectedId === doc.id ? "bg-blue-100 text-blue-700" : "bg-gray-200 text-gray-700"
+                }`}
+              >
+                {idx + 1}
+              </span>
+              <div className={`font-medium ${selectedId === doc.id ? "text-blue-700" : "text-gray-900"}`}>
+                {doc.title}
+              </div>
             </div>
-            <div className="text-xs text-gray-500">
+            <div className="mt-1 text-xs text-gray-500">
               {new Date(doc.created_at).toLocaleDateString(undefined, {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
               })}
             </div>
           </button>

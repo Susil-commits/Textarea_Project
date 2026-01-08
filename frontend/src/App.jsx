@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Editor from "./Editor";
-import DocumentList from "./DocumentList";
 import Viewer from "./Viewer";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function App() {
   const [viewMode, setViewMode] = useState("editor"); // 'editor' | 'viewer'
@@ -34,58 +34,44 @@ export default function App() {
             </svg>
             <h1 className="text-xl font-bold text-gray-900">DocManager</h1>
           </div>
-          <button
-            onClick={handleCreateNew}
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
-          >
-            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-            </svg>
-            New Document
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleCreateNew}
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+            >
+              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+              New Document
+            </button>
+            <Link
+              to="/documents"
+              className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-800 bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors"
+            >
+              All Documents
+            </Link>
+          </div>
         </div>
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          {/* Sidebar / Document List */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-              <div className="p-4 border-b border-gray-200 bg-gray-50">
-                <h2 className="text-lg font-medium text-gray-900">Saved Documents</h2>
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 min-h-[600px] flex flex-col">
+          {viewMode === "editor" ? (
+            <Editor onSaveSuccess={() => {
+              handleCreateNew();
+              window.dispatchEvent(new Event('doc-saved'));
+            }} />
+          ) : (
+            <div className="p-6">
+              <div className="mb-6 pb-4 border-b border-gray-200">
+                <h1 className="text-3xl font-bold text-gray-900 mb-2">{selectedDoc?.title}</h1>
+                <p className="text-sm text-gray-500">
+                  Created at: {new Date(selectedDoc?.created_at).toLocaleString()}
+                </p>
               </div>
-              <div className="max-h-[calc(100vh-200px)] overflow-y-auto">
-                <DocumentList onSelect={handleSelectDoc} selectedId={selectedDoc?.id} />
-              </div>
+              <Viewer delta={selectedDoc?.content} />
             </div>
-          </div>
-
-          {/* Main Content Area */}
-          <div className="lg:col-span-3">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 min-h-[600px] flex flex-col">
-              {viewMode === "editor" ? (
-                <Editor onSaveSuccess={() => {
-                  // Refresh list (we might need to lift state up or trigger a reload)
-                  // For now, we can just switch to 'viewer' if we had the ID, but newly created doesn't return ID easily in the current Editor logic without changes.
-                  // Let's just reset to create new.
-                  handleCreateNew();
-                  // Ideally we want to refresh the list.
-                  // We can pass a refresh trigger to DocumentList.
-                  window.dispatchEvent(new Event('doc-saved')); // Simple event bus for now
-                }} />
-              ) : (
-                <div className="p-6">
-                  <div className="mb-6 pb-4 border-b border-gray-200">
-                    <h1 className="text-3xl font-bold text-gray-900 mb-2">{selectedDoc?.title}</h1>
-                    <p className="text-sm text-gray-500">
-                      Created at: {new Date(selectedDoc?.created_at).toLocaleString()}
-                    </p>
-                  </div>
-                  <Viewer delta={selectedDoc?.content} />
-                </div>
-              )}
-            </div>
-          </div>
+          )}
         </div>
       </main>
     </div>
