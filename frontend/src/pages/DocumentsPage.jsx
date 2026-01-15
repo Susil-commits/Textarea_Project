@@ -52,6 +52,7 @@ export default function DocumentsPage() {
   };
 
   useEffect(() => {
+    ensureAuth();
     fetchPage(1);
     fetchFiles(1);
   }, []);
@@ -63,6 +64,14 @@ export default function DocumentsPage() {
     } else {
       if (p < 1 || p > filesTotalPages) return;
       fetchFiles(p);
+    }
+  };
+
+  const ensureAuth = async () => {
+    try {
+      await axios.get("http://localhost:5000/api/documents?page=1&limit=1");
+    } catch (e) {
+      window.location.href = "/login";
     }
   };
 
