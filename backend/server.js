@@ -34,7 +34,7 @@ function requireAuth(req, res, next) {
   const user = sep >= 0 ? decoded.slice(0, sep) : decoded;
   const pass = sep >= 0 ? decoded.slice(sep + 1) : "";
   const expectedUser = process.env.DOCMGR_USER || "admin";
-  const expectedPass = process.env.DOCMGR_PASS || "admin";
+  const expectedPass = process.env.DOCMGR_PASS || "admin1234";
   if (user !== expectedUser || pass !== expectedPass) {
     res.setHeader("WWW-Authenticate", 'Basic realm="DocManager"');
     return res.status(401).json({ message: "Unauthorized", user: escapeHTML(user) });

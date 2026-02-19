@@ -38,7 +38,18 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800">
       <div className="max-w-md mx-auto mt-24 bg-white border border-gray-200 rounded-lg shadow-sm p-6">
-        <h1 className="text-xl font-bold mb-4">Sign In</h1>
+        <div className="flex items-center gap-3 mb-4">
+          <button
+            onClick={() => navigate('/')}
+            aria-label="Back to home"
+            className="inline-flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100"
+          >
+            <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <h1 className="text-xl font-bold">Sign In</h1>
+        </div>
         {error && <div className="mb-3 text-sm text-red-600">{escapeHTML(error)}</div>}
         <form onSubmit={submit} className="space-y-4">
           <div>

@@ -14,6 +14,20 @@ if (auth) {
   axios.defaults.headers.common["Authorization"] = `Basic ${auth}`;
 }
 
+// Global handler: on 401 clear auth and redirect to login
+axios.interceptors.response.use(
+  (res) => res,
+  (err) => {
+    if (err && err.response && err.response.status === 401) {
+      localStorage.removeItem("dm_auth");
+      delete axios.defaults.headers.common["Authorization"];
+      // force navigate to login
+      window.location.href = "/login";
+    }
+    return Promise.reject(err);
+  }
+);
+
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
   { path: "/login", element: <LoginPage /> },
